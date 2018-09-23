@@ -108,6 +108,21 @@ public class Main {
         System.out.println("\tArrayList:\t\t" + timer.getNanoTime()+ "\t" + a3.toString() + "\tsize: " + a3.size());
         timer.reset();
 
+        System.out.println("\nCheck if the List contains a collection, ns");
+
+        boolean ret;
+        timer.start();
+        ret = am3.containsAll(c2);
+        timer.stop();
+        System.out.println("\tMyArrayList:\t" + timer.getNanoTime() + "\t" + ret + "\tsize: " + am3.size());
+        timer.reset();
+
+        timer.start();
+        ret = a3.containsAll(c2);
+        System.out.println("\tArrayList:\t\t" + timer.getNanoTime()+ "\t" + ret + "\tsize: " + a3.size());
+        timer.reset();
+
+
         System.out.println("\nGet an element, ns");
 
         int i = 9;
@@ -125,13 +140,13 @@ public class Main {
         System.out.println("\nRemove one element at the specified position, ns");
 
         timer.start();
-        am3.remove(6);
+        am3.remove(0);
         timer.stop();
         System.out.println("\tMyArrayList:\t" + timer.getNanoTime() + "\t" + am3.toString() + "\tsize: " + am3.size());
         timer.reset();
 
         timer.start();
-        a3.remove(6);
+        a3.remove(0);
         System.out.println("\tArrayList:\t\t" + timer.getNanoTime()+ "\t" + a3.toString() + "\tsize: " + a3.size());
         timer.reset();
 
@@ -139,26 +154,13 @@ public class Main {
         System.out.println("\nRemove the first occurrence of the specified element, ns");
 
         timer.start();
-        am3.remove(Integer.valueOf(10));
+        am3.remove(Integer.valueOf(2));
         timer.stop();
         System.out.println("\tMyArrayList:\t" + timer.getNanoTime() + "\t" + am3.toString() + "\tsize: " + am3.size());
         timer.reset();
 
         timer.start();
-        a3.remove(Integer.valueOf(10));
-        System.out.println("\tArrayList:\t\t" + timer.getNanoTime()+ "\t" + a3.toString() + "\tsize: " + a3.size());
-        timer.reset();
-
-        System.out.println("\nRemove the first occurrence of the specified element, ns");
-
-        timer.start();
-        am3.remove(Integer.valueOf(1));
-        timer.stop();
-        System.out.println("\tMyArrayList:\t" + timer.getNanoTime() + "\t" + am3.toString() + "\tsize: " + am3.size());
-        timer.reset();
-
-        timer.start();
-        a3.remove(Integer.valueOf(1));
+        a3.remove(Integer.valueOf(2));
         System.out.println("\tArrayList:\t\t" + timer.getNanoTime()+ "\t" + a3.toString() + "\tsize: " + a3.size());
         timer.reset();
 
@@ -217,7 +219,6 @@ public class Main {
         Collections.sort(a5);
         System.out.println("\tArrayList:\t\t" + timer.getNanoTime()+ "\t" + a5.toString() + "\tsize: " + a4.size());
         timer.reset();
-
 
     }
 }
