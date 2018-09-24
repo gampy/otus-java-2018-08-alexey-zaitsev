@@ -220,5 +220,22 @@ public class Main {
         System.out.println("\tArrayList:\t\t" + timer.getNanoTime()+ "\t" + a5.toString() + "\tsize: " + a4.size());
         timer.reset();
 
+        System.out.println("\nRealized ListIterator");
+
+        MyArrayList<Integer> list1 = new MyArrayList<>();
+        list1.addAll(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
+
+        MyArrayList<Integer> list2 = new MyArrayList<>();
+        list2.addAll(Arrays.asList(null, null, null, null, null, null, null, null, null, null, null));
+        Collections.copy(list2, list1);
+        System.out.println("\tMyArrayList:\t\t" + "\t" + list2.toString() + "\tsize: " + list2.size());
+
+        System.out.println("\nListIterator's methods test");
+
+        ListIterator<Integer> it = list1.listIterator();
+        while (it.hasNext()) System.out.print (it.next() + " ");
+        System.out.println();
+        while (it.hasPrevious()) System.out.print (it.previous() + " ");
+
     }
 }

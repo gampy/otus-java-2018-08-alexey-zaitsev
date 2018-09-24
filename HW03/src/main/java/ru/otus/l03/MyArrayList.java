@@ -37,7 +37,7 @@ public class MyArrayList<E> implements List<E> {
         return true;
     }
 
-    /** Inserts the specified element at the specified position in this list (optional operation). */
+    /** Inserts the specified element at the specified cursorition in this list (optional operation). */
     @Override
     public void add(int index, E e) {
         E[] clone = (E[]) Array.newInstance(Object.class, list.length + 1);
@@ -61,7 +61,7 @@ public class MyArrayList<E> implements List<E> {
         return modified;
     }
 
-    /** Inserts all of the elements in the specified collection into this list, starting at the specified position. */
+    /** Inserts all of the elements in the specified collection into this list, starting at the specified cursorition. */
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
         E[] clone = (E[]) Array.newInstance(Object.class, list.length + c.size());
@@ -110,7 +110,7 @@ public class MyArrayList<E> implements List<E> {
         return this == o;
     }
 
-    /** Returns the element at the specified position in the list */
+    /** Returns the element at the specified cursorition in the list */
     @Override
     public E get(int index) {
         return list[index];
@@ -155,16 +155,16 @@ public class MyArrayList<E> implements List<E> {
     /** Returns a list iterator over the elements in this list (in proper sequence). */
     @Override
     public ListIterator<E> listIterator() {
-        throw new UnsupportedOperationException("listIterator");
+        return new MyArrayList.MyListIterator(0);
     }
 
-    /** Returns a list iterator over the elements in this list (in proper sequence), starting at the specified position in the list. */
+    /** Returns a list iterator over the elements in this list (in proper sequence), starting at the specified cursorition in the list. */
     public ListIterator<E> 	listIterator(int index) {
         throw new UnsupportedOperationException("listIterator");
     }
 
 
-    /** Removes the element at the specified position in this list. */
+    /** Removes the element at the specified cursorition in this list. */
     @Override
     public E remove(int index) {
         E[] clone = (E[]) Array.newInstance(Object.class, list.length - 1);
@@ -205,7 +205,7 @@ public class MyArrayList<E> implements List<E> {
         throw new UnsupportedOperationException("retainAll");
     }
 
-    /** Replaces the element at the specified position in this list with the specified element. */
+    /** Replaces the element at the specified cursorition in this list with the specified element. */
     @Override
     public E set(int index, E element) {
         E e = list[index];
@@ -297,4 +297,73 @@ public class MyArrayList<E> implements List<E> {
         }
     }
 
+    private class MyListIterator implements ListIterator<E> {
+            int cursor;
+            int index = -1;
+
+        MyListIterator(int index) {
+            this.cursor = index;
+        }
+
+        /** Returns true if this list iterator has more elements when traversing the list in the forward direction. */
+        public boolean hasNext() {
+            return cursor < MyArrayList.this.size()? true: false;
+        }
+
+        /**  Returns true if this list iterator has more elements when traversing the list in the reverse direction.*/
+        public boolean hasPrevious() {
+            return cursor > 0? true: false;
+        }
+
+        /** Returns the next element in the list and advances the cursor cursorition. */
+        public E next() {
+            if (cursor + 1 > MyArrayList.this.size()) {
+                throw new NoSuchElementException();
+            } else {
+                this.index = cursor;
+                cursor++;
+                return MyArrayList.this.get(index);
+            }
+        }
+
+        /** Returns the index of the element that would be returned by a subsequent call to next(). */
+        public int nextIndex() {
+            return this.cursor;
+        }
+
+        /** Returns the previous element in the list and moves the cursor cursorition backwards. */
+        public E previous() {
+            if (cursor <= 0) {
+                throw new NoSuchElementException();
+            } else {
+                cursor--;
+                this.index = cursor;
+                return MyArrayList.this.get(index);
+            }
+        }
+
+        /** Returns the index of the element that would be returned by a subsequent call to previous(). */
+        public int previousIndex() {
+            return this.cursor - 1;
+        }
+
+        public void add(E e) {
+            throw new UnsupportedOperationException("add");
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException("remove");
+        }
+
+        public void set(E e) {
+            MyArrayList.this.set(this.index, e);
+        }
+
+    }
+
+
+
+
+
 }
+
