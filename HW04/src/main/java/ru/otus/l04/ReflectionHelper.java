@@ -58,11 +58,16 @@ public class ReflectionHelper {
         return classes;
     }
 
+    static Class getClass(String cls) throws ClassNotFoundException {
+        return Class.forName(cls);
+    }
+
+
     /**
      * returns all the methods in a certain class
      *
      * @param cls The class
-     * @return The methods
+     * @return The List of methods
      * @throws IllegalArgumentException
      */
 
@@ -71,13 +76,33 @@ public class ReflectionHelper {
     }
 
     /**
+     * returns all the annotations at a certain method
+     *
+     * @param method The metod
+     * @return The List of annotations
+     * @throws IllegalArgumentException
+     */
+    public static List<Annotation> getAnnotations(Method method) {
+        return Arrays.asList(method.getDeclaredAnnotations());
+    }
+
+    public static List<Class<? extends Annotation>> getAnnotationClasses(List<Annotation> annotations) {
+        List<Class<? extends Annotation>> ac = new ArrayList<>();
+        for (Annotation annotation: annotations) {
+            ac.add(annotation.annotationType());
+        }
+        return ac;
+    }
+
+
+    /**
      * creates an array of args for @Test-tagged methods
      *
      * @param annotation @Test is expected
      * @return The array of args
      */
 
-    private static Object[] getTestAnnotationValues(Annotation annotation) {
+    public static Object[] getTestAnnotationValues(Annotation annotation) {
         if (annotation instanceof Test) {
             return new Object[] {((Test) annotation).valueInt1(), ((Test) annotation).valueInt2()};
         }
@@ -93,17 +118,18 @@ public class ReflectionHelper {
      * @param annotationClass The class of the annotation to be checked
      * @throws IllegalAccessException, InstantiationException, InvocationTargetException
      */
-    public static void invokeAnnotatedMethod(Method method, Class annotationClass) throws IllegalAccessException, InstantiationException, InvocationTargetException {
-        Annotation[] annotations = method.getDeclaredAnnotations();
+    /*
+    public static void invokeAnnotatedMethod(Method method) throws IllegalAccessException, InstantiationException, InvocationTargetException {
+        List<Annotation> annotations = getAnnotations(method);
+        System.out.println(getAnnotationClasses(annotations));
         for (Annotation annotation: annotations) {
-            if (annotation.annotationType().equals(annotationClass)) {
-                if (method.getParameterTypes().length > 0) {
-                    method.invoke(method.getDeclaringClass().newInstance(), getTestAnnotationValues(annotation));
-                } else {
-                    method.invoke(method.getDeclaringClass().newInstance());
-                }
+            if (getAnnotationClasses(annotations).contains(After.class)) System.out.println("Hurra");
+            if (method.getParameterTypes().length > 0) {
+                method.invoke(method.getDeclaringClass().newInstance(), getTestAnnotationValues(annotation));
+            } else {
+                method.invoke(method.getDeclaringClass().newInstance());
             }
         }
-    }
+    }*/
 
 }

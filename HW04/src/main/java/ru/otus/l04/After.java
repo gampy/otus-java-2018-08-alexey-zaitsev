@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 
-public @interface Test {
+public @interface After {
     int valueInt1() default 0;
     int valueInt2() default 0;
 }
