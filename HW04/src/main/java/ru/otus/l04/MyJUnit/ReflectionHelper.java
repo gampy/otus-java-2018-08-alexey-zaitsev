@@ -1,12 +1,18 @@
-package ru.otus.l04;
+package ru.otus.l04.MyJUnit;
 
-import java.io.*;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.*;
+import java.io.File;
+import java.io.IOException;
+import java.lang.annotation.*;
+import java.lang.reflect.Method;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.List;
 
-public class ReflectionHelper {
+
+
+class ReflectionHelper {
 
     /**
      * Scans all classes accessible from the context class loader which belong to the given package and subpackages.
@@ -85,51 +91,5 @@ public class ReflectionHelper {
     public static List<Annotation> getAnnotations(Method method) {
         return Arrays.asList(method.getDeclaredAnnotations());
     }
-
-    public static List<Class<? extends Annotation>> getAnnotationClasses(List<Annotation> annotations) {
-        List<Class<? extends Annotation>> ac = new ArrayList<>();
-        for (Annotation annotation: annotations) {
-            ac.add(annotation.annotationType());
-        }
-        return ac;
-    }
-
-
-    /**
-     * creates an array of args for @Test-tagged methods
-     *
-     * @param annotation @Test is expected
-     * @return The array of args
-     */
-
-    public static Object[] getTestAnnotationValues(Annotation annotation) {
-        if (annotation instanceof Test) {
-            return new Object[] {((Test) annotation).valueInt1(), ((Test) annotation).valueInt2()};
-        }
-
-        return null;
-    }
-
-
-    /**
-     * invoke an annotated method
-     *
-     * @param method The method to be invoked
-     * @param annotationClass The class of the annotation to be checked
-     * @throws IllegalAccessException, InstantiationException, InvocationTargetException
-     */
-    /*
-    public static void invokeAnnotatedMethod(Method method) throws IllegalAccessException, InstantiationException, InvocationTargetException {
-        List<Annotation> annotations = getAnnotations(method);
-        System.out.println(getAnnotationClasses(annotations));
-        for (Annotation annotation: annotations) {
-            if (getAnnotationClasses(annotations).contains(After.class)) System.out.println("Hurra");
-            if (method.getParameterTypes().length > 0) {
-                method.invoke(method.getDeclaringClass().newInstance(), getTestAnnotationValues(annotation));
-            } else {
-                method.invoke(method.getDeclaringClass().newInstance());
-            }
-        }
-    }*/
-
 }
+

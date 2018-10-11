@@ -1,4 +1,4 @@
-package ru.otus.l04;
+package ru.otus.l04.MyJUnit;
 
 import java.lang.annotation.*;
 
@@ -6,7 +6,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 
-public @interface Before {
-    int valueInt1() default 0;
-    int valueInt2() default 0;
+public @interface After {
 }
