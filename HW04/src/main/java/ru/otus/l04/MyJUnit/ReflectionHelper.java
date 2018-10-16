@@ -84,7 +84,7 @@ class ReflectionHelper {
     /**
      * returns all the annotations at a certain method
      *
-     * @param method The metod
+     * @param method The method
      * @return The List of annotations
      * @throws IllegalArgumentException
      */
