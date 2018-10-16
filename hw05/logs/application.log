@@ -1,0 +1,32 @@
+
+22:56:45.016 [Copy] INFO  ru.otus.l05.GCLogger - GS type: Young,	GS name: Copy,	Count: 1,	Time (ms): 82
+22:56:45.028 [MarkSweepCompact] INFO  ru.otus.l05.GCLogger - GS type: Old,	GS name: MarkSweepCompact,	Count: 0,	Time (ms): 0
+22:57:45.013 [Copy] INFO  ru.otus.l05.GCLogger - GS type: Young,	GS name: Copy,	Count: 1,	Time (ms): 82
+22:57:45.027 [MarkSweepCompact] INFO  ru.otus.l05.GCLogger - GS type: Old,	GS name: MarkSweepCompact,	Count: 0,	Time (ms): 0
+22:58:45.012 [Copy] INFO  ru.otus.l05.GCLogger - GS type: Young,	GS name: Copy,	Count: 2,	Time (ms): 182
+22:58:45.027 [MarkSweepCompact] INFO  ru.otus.l05.GCLogger - GS type: Old,	GS name: MarkSweepCompact,	Count: 0,	Time (ms): 0
+22:59:45.013 [Copy] INFO  ru.otus.l05.GCLogger - GS type: Young,	GS name: Copy,	Count: 3,	Time (ms): 274
+22:59:45.028 [MarkSweepCompact] INFO  ru.otus.l05.GCLogger - GS type: Old,	GS name: MarkSweepCompact,	Count: 0,	Time (ms): 0
+23:00:40.960 [main] ERROR ru.otus.l05.GCLogger - "Java heap space" exception is thrown in "main" thread. Application is terminated.
+23:02:43.633 [PS MarkSweep] INFO  ru.otus.l05.GCLogger - GS type: Old,	GS name: PS MarkSweep,	Count: 0,	Time (ms): 0
+23:02:43.685 [PS Scavenge] INFO  ru.otus.l05.GCLogger - GS type: Young,	GS name: PS Scavenge,	Count: 0,	Time (ms): 0
+23:03:43.631 [PS MarkSweep] INFO  ru.otus.l05.GCLogger - GS type: Old,	GS name: PS MarkSweep,	Count: 0,	Time (ms): 0
+23:03:43.639 [PS Scavenge] INFO  ru.otus.l05.GCLogger - GS type: Young,	GS name: PS Scavenge,	Count: 1,	Time (ms): 44
+23:04:43.631 [PS MarkSweep] INFO  ru.otus.l05.GCLogger - GS type: Old,	GS name: PS MarkSweep,	Count: 0,	Time (ms): 0
+23:04:43.639 [PS Scavenge] INFO  ru.otus.l05.GCLogger - GS type: Young,	GS name: PS Scavenge,	Count: 2,	Time (ms): 95
+23:05:43.631 [PS MarkSweep] INFO  ru.otus.l05.GCLogger - GS type: Old,	GS name: PS MarkSweep,	Count: 1,	Time (ms): 74
+23:05:43.639 [PS Scavenge] INFO  ru.otus.l05.GCLogger - GS type: Young,	GS name: PS Scavenge,	Count: 3,	Time (ms): 144
+23:06:24.536 [main] ERROR ru.otus.l05.GCLogger - "Java heap space" exception is thrown in "main" thread. Application is terminated.
+23:08:25.669 [ParNew] INFO  ru.otus.l05.GCLogger - GS type: Young,	GS name: ParNew,	Count: 0,	Time (ms): 0
+23:08:25.747 [ConcurrentMarkSweep] INFO  ru.otus.l05.GCLogger - GS type: Old,	GS name: ConcurrentMarkSweep,	Count: 0,	Time (ms): 0
+23:09:25.667 [ParNew] INFO  ru.otus.l05.GCLogger - GS type: Young,	GS name: ParNew,	Count: 1,	Time (ms): 72
+23:09:25.673 [ConcurrentMarkSweep] INFO  ru.otus.l05.GCLogger - GS type: Old,	GS name: ConcurrentMarkSweep,	Count: 0,	Time (ms): 0
+23:10:25.666 [ParNew] INFO  ru.otus.l05.GCLogger - GS type: Young,	GS name: ParNew,	Count: 2,	Time (ms): 161
+23:10:25.673 [ConcurrentMarkSweep] INFO  ru.otus.l05.GCLogger - GS type: Old,	GS name: ConcurrentMarkSweep,	Count: 7,	Time (ms): 116
+23:11:25.667 [ParNew] INFO  ru.otus.l05.GCLogger - GS type: Young,	GS name: ParNew,	Count: 3,	Time (ms): 230
+23:11:25.673 [ConcurrentMarkSweep] INFO  ru.otus.l05.GCLogger - GS type: Old,	GS name: ConcurrentMarkSweep,	Count: 28,	Time (ms): 356
+23:12:21.276 [main] ERROR ru.otus.l05.GCLogger - "Java heap space" exception is thrown in "main" thread. Application is terminated.
+23:15:06.442 [G1 Young Generation] INFO  ru.otus.l05.GCLogger - GS type: Young,	GS name: G1 Young Generation,	Count: 1,	Time (ms): 11
+23:15:06.448 [G1 Old Generation] INFO  ru.otus.l05.GCLogger - GS type: Old,	GS name: G1 Old Generation,	Count: 0,	Time (ms): 0
+23:16:06.438 [G1 Young Generation] INFO  ru.otus.l05.GCLogger - GS type: Young,	GS name: G1 Young Generation,	Count: 168,	Time (ms): 619
+23:16:06.448 [G1 Old Generation] INFO  ru.otus.l05.GCLogger - GS type: Old,	GS name: G1 Old Generation,	Count: 0,	Time (ms): 0
