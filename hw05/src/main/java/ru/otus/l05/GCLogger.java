@@ -14,7 +14,7 @@ public class GCLogger {
     Thread.UncaughtExceptionHandler handler = (thread, e) -> {
         String err = "\"" + e.getMessage() + "\" exception is thrown in \"" + thread.getName() + "\" thread. Application is terminated.";
         logger.error(err);
-        System.exit(-1);
+        System.exit(-1);()
     };
 
     private void stat(GC gc) {
