@@ -56,7 +56,7 @@ public class CacheEngineImpl<K, V> implements CacheEngine<K, V> {
 
     /** altered by gampy */
     public MyElement<K, V> get(K key) {
-        MyElement<K, V> element = elements.get(key).get();
+        MyElement<K, V> element = (elements.get(key) !=null) ? elements.get(key).get() : null;
         if (element != null) {
             hit++;
             element.setAccessed();
