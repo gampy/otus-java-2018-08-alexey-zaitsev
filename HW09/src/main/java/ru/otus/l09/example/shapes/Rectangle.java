@@ -1,7 +1,5 @@
 package ru.otus.l09.example.shapes;
 
-import ru.otus.l09.example.visitor.Visitor;
-
 public class Rectangle implements Shape {
     private String id;
     private int x;
@@ -15,11 +13,6 @@ public class Rectangle implements Shape {
         this.y = y;
         this.width = width;
         this.height = height;
-    }
-
-    @Override
-    public String accept(Visitor visitor) {
-        return visitor.visitRectangle(this);
     }
 
     @Override

@@ -19,11 +19,15 @@ public class MyGson {
         }
 
         if (path.getRootNode().getType() == FPath.ValueType.STRING) {
-           return  Json.createValue((String) path.getRootNode().getFieldObject()).toString();
+            return writeToString((Json.createValue((String) path.getRootNode().getFieldObject())));
         }
 
         if (path.getRootNode().getType() == FPath.ValueType.NUMBER) {
-            return  Json.createValue((Integer) path.getRootNode().getFieldObject()).toString();                     //Only Integers are supported!
+            return writeToString((Json.createValue((Integer) path.getRootNode().getFieldObject())));                     //Only Integers are supported!
+        }
+
+        if (path.getRootNode().getType() == FPath.ValueType.BOOLEAN) {
+            return writeToString((boolean)path.getRootNode().getFieldObject()? JsonValue.TRUE: JsonValue.FALSE);
         }
 
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
@@ -32,15 +36,13 @@ public class MyGson {
         return writeToString(objectBuilder.build());
     }
 
-    private String writeToString(JsonObject jsonStr) {
+    private String writeToString(JsonValue jsonValue) {
         Writer writer = new StringWriter();
         try (JsonWriter jsonWriter = Json.createWriter(writer)) {
-            jsonWriter.writeObject(jsonStr);
+            jsonWriter.write(jsonValue);
         }
-
         return writer.toString();
     }
-
 
     private JsonObjectBuilder buildJson(List<FPath.Node> nodes, JsonObjectBuilder objectBuilder) {
 
@@ -56,7 +58,7 @@ public class MyGson {
                 continue;
             }
 
-            if (node.isArray()) {
+            if (node.isIterable()) {
                 createArrayElement(node, objectBuilder);
                 continue;
             }
@@ -75,7 +77,7 @@ public class MyGson {
                     addObjectBoolean(node, objectBuilder);
                     break;
                 default:
-                    return null;
+                    break;
             }
         }
         return objectBuilder;
@@ -94,8 +96,23 @@ public class MyGson {
         for (Iterator<FPath.Node> iter = nodes.iterator(); iter.hasNext(); ) {
             FPath.Node node = iter.next();
 
-            if (node.isArray()) {
-                arrayBuilder.add(buildJson(node.getChildrenNodes(), Json.createObjectBuilder()));
+            if (node.isIterable()) {
+                switch (node.getType()) {
+                    case OBJECT:
+                        arrayBuilder.add(buildJson(node.getChildrenNodes(), Json.createObjectBuilder()));
+                        break;
+                    case STRING:
+                        arrayBuilder.add((String) node.getFieldObject());
+                        break;
+                    case NUMBER:
+                        arrayBuilder.add((Integer) node.getFieldObject());
+                        break;
+                    case BOOLEAN:
+                        arrayBuilder.add((Boolean) node.getFieldObject());
+                        break;
+                    default:
+                        break;
+                }
             } else {
                 throw new IllegalArgumentException("The node " + node + " is not an array element!");
             }

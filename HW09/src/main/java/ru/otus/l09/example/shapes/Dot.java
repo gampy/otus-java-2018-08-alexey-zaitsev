@@ -1,7 +1,5 @@
 package ru.otus.l09.example.shapes;
 
-import ru.otus.l09.example.visitor.Visitor;
-
 public class Dot implements Shape {
     private String id;
     private int x;
@@ -24,10 +22,6 @@ public class Dot implements Shape {
     @Override
     public void draw() {
         // draw shape
-    }
-
-    public String accept(Visitor visitor) {
-        return visitor.visitDot(this);
     }
 
     public int getX() {

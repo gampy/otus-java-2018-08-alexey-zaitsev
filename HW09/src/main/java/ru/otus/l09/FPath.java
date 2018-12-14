@@ -22,6 +22,15 @@ public class FPath {
         registerPrimitive(short.class, Number.class);
         registerPrimitive(char.class, String.class);
         registerPrimitive(boolean.class, Boolean.class);
+
+        registerPrimitive(Integer.class, Number.class);
+        registerPrimitive(Long.class, Number.class);
+        registerPrimitive(Double.class, Number.class);
+        registerPrimitive(Float.class, Number.class);
+        registerPrimitive(Byte.class, Number.class);
+        registerPrimitive(Short.class, Number.class);
+        registerPrimitive(Character.class, String.class);
+        registerPrimitive(Boolean.class, Boolean.class);
     }
 
     private void registerPrimitive(Class<?> k, Class<?> v) {
@@ -35,7 +44,7 @@ public class FPath {
         } else {
             rootNode = new RootNode(obj);
 
-            if (rootNode.isArray) {
+            if (rootNode.isIterable()) {
                 throw new UnsupportedOperationException("The object to serialize is an array. The operation is not supported: only objects, primitives and nested arrays can be used in MyGson");
             }
 
@@ -60,11 +69,16 @@ public class FPath {
                     continue;
                 }
 
-                else if (node.isArray()) {
-                    for (Object arrObj : (Collection<?>) node.getFieldObject()) {
+                else if (node.isIterable()) {
+                    Collection<?> it;
+                    if (node.isArray()) it = Arrays.asList((Object[]) node.getFieldObject());
+                    else if (node.isCollection()) it  = (Collection<?>) node.getFieldObject();
+                    else throw new RuntimeException("smth went wrong...");
+
+                    for (Object arrObj : it) {
                         Node arrNode = new Node(field, obj, arrObj, parentNode);
                         nodesList.add(arrNode);
-                        if (arrNode.isFieldObjectNull()) {
+                        if (arrNode.isFieldObjectNull() || arrNode.isFieldPrimitive()) {
                             continue;
                         }
                         createPath(arrObj, arrNode);
@@ -104,7 +118,7 @@ public class FPath {
                 try {
                     sb.append("Field: " + node.field.getName() + "\r\n")
                             .append("Value Type: " + node.getType()  + "\r\n")
-                            .append("Is Array: " + node.isArray()  + "\r\n")
+                            .append("Is Iterable: " + node.isIterable()  + "\r\n")
                             .append("Is Transient: " + node.isTransient  + "\r\n")
                             .append("Field Object: " + node.getFieldObject() + "\r\n")
                             .append("Node Object: " + node.nodeObject + "\r\n")
@@ -135,22 +149,23 @@ public class FPath {
         return nodes;
     }
 
-
     public List<Node> getNodes() {
         return nodesList;
     }
 
     class RootNode {
         private Object fieldObject;
-        private ValueType valueType;
         private boolean isArray;
+        private boolean isCollection;
+        private ValueType valueType;
 
         private RootNode() {}
 
         RootNode(Object baseObject) {
             this.fieldObject = baseObject;                                      //The object itself for the root object
-            this.valueType = setType(baseObject.getClass());
             this.isArray = setArray(baseObject.getClass());
+            this.isCollection = setCollection(baseObject.getClass());
+            this.valueType = setType(baseObject.getClass());
         }
 
         boolean isFieldPrimitive() {
@@ -179,11 +194,23 @@ public class FPath {
         }
 
         protected boolean setArray(Class<?> c) {
-            return Collection.class.isAssignableFrom(c) || c.isArray();
+            return c.isArray();
+        }
+
+        protected boolean setCollection(Class<?> c) {
+            return Collection.class.isAssignableFrom(c);
         }
 
         boolean isArray() {
             return isArray;
+        }
+
+        boolean isCollection() {
+            return isCollection;
+        }
+
+        boolean isIterable() {
+            return isArray || isCollection;
         }
 
         boolean isObject() {
@@ -193,8 +220,6 @@ public class FPath {
 
     class Node extends RootNode {
         private Field field;
-//        private Object fieldObject;
-//        private ValueType valueType = ValueType.NULL;
         private Object nodeObject;
         private boolean isTransient;
         private Node parentNode;
@@ -203,8 +228,9 @@ public class FPath {
             this.field = field;
             this.nodeObject = nodeObject;
             super.fieldObject = fieldObject;
-            super.valueType = setType(field.getType());
             super.isArray = setArray(field.getType());
+            super.isCollection = setCollection(field.getType());
+            super.valueType = setType(fieldObject.getClass());
             this.isTransient = setTransient(field.getModifiers());
             this.parentNode = parentNode;
         }
@@ -250,7 +276,7 @@ public class FPath {
         }
 
         public List<Node> getArrayNodes() {
-            if (isArray()) {
+            if (isIterable()) {
                 List<Node> nodes = new LinkedList<>();
                 for (Node n : nodesList) {
                     if (n.getNodeObject() == this.getNodeObject() && n.getField() == this.getField() && n.getParentNode() == this.getParentNode()) {

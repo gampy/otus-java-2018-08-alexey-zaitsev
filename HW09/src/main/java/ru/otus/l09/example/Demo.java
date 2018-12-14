@@ -1,9 +1,13 @@
 package ru.otus.l09.example;
 
 import ru.otus.l09.example.shapes.*;
-import ru.otus.l09.example.visitor.XMLExportVisitor;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class Demo {
+    String[] arr = new String[]{"a", "b", "c"};
+    List<String> list = Arrays.asList("d", "e", "f");
     Dot dot;
     Circle circle;
     Rectangle rectangle;
@@ -11,8 +15,6 @@ public class Demo {
     CompoundShape ccs;
     transient int transientTest = 0;
     Boolean toDraw = false;
-
-
 
     public Demo() {
         dot = new Dot("1", 10, 55);
@@ -28,11 +30,6 @@ public class Demo {
         ccs.add(cs);
         ccs.add(rectangle);
 
-//        export(circle, ccs);
     }
 
-    private static void export(Shape... shapes) {
-        XMLExportVisitor exportVisitor = new XMLExportVisitor();
-        System.out.println(exportVisitor.export(shapes));
-    }
 }
