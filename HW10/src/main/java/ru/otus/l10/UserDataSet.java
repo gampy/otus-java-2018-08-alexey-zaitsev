@@ -29,8 +29,8 @@ public class UserDataSet extends DataSet {
     public String toString() {
         return "\"user\": {" +
                 "\n\"id\": " + this.getId() + "," +
-                "\n\"name: \"" + name + "\"" + "," +
-                "\n\"age: " + age  + "," +
+                "\n\"name\": \"" + name + "\"" + "," +
+                "\n\"age\": " + age  + "," +
                 "\n}";
     }
 }

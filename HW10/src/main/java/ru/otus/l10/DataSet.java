@@ -1,13 +1,16 @@
 package ru.otus.l10;
 
 public abstract class DataSet {
-    private final long id;
+    private long id;
 
     public DataSet() {
-        this(0);
     }
 
     public DataSet(long id) {
+        this.id = id;
+    }
+
+    public void setId(long id) {
         this.id = id;
     }
 
