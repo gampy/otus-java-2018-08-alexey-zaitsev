@@ -3,12 +3,13 @@ package ru.otus.l10.reflect;
 import ru.otus.l10.DataSet;
 import ru.otus.l10.EmployeeDataSet;
 import ru.otus.l10.UserDataSet;
+import ru.otus.l10.cache.CachedElementImpl;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.*;
 
-public class Structure<T extends DataSet> {
+public class ClassMetaData<T extends DataSet> extends CachedElementImpl {
 
     private Class<T> baseClass;
     private Constructor<T> defaultConstructor;
@@ -19,7 +20,7 @@ public class Structure<T extends DataSet> {
     private static final Map<Class<?>, FieldValueType> typesMapping = new HashMap<>();
     private static final Map<Class<? extends DataSet>, String> tables = new HashMap<>();
 
-    public Structure(Class<T> c) throws InstantiationException, IllegalAccessException {
+    public ClassMetaData(Class<T> c) throws InstantiationException, IllegalAccessException {
         if (c == null) {
             throw new NullPointerException("The object can't point to null");
         }
