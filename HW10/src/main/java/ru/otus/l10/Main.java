@@ -1,10 +1,6 @@
 package ru.otus.l10;
 
-import ru.otus.l10.connection.ConnectionHelper;
 import ru.otus.l10.myORM.DBService;
-import ru.otus.l10.myORM.Executor;
-
-import java.sql.SQLException;
 
 public class Main {
 
