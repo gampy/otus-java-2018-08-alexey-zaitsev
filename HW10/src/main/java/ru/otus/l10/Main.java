@@ -1,12 +1,12 @@
 package ru.otus.l10;
 
-import ru.otus.l10.myORM.DBService;
+import ru.otus.l10.myORM.MyOrmDBService;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        DBService dbService = new DBService();
+        MyOrmDBService dbService = new MyOrmDBService();
 
         UserDataSet user1 = new UserDataSet("Гоша", 20);
         UserDataSet user2 = new UserDataSet("Вася", 21);
@@ -39,6 +39,8 @@ public class Main {
         } else {
             System.out.println("Нет записей с id = " + id);
         }
+
+        dbService.close();
 
     }
 }
