@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MyOrmDBService<T extends DataSet> {
+public class MyOrmDBService<T extends DataSet> implements MyDAO<T>, MyDBS<T> {
     private final Connection connection;
     private static CacheEngine<Class, ClassMetaData> cache = new CacheEngineImpl<>(100, 0, 0, false);
 
@@ -71,7 +71,8 @@ public class MyOrmDBService<T extends DataSet> {
         }
     }
 
-    private void prepareTables(ClassMetaData<T> cmd) {
+    @Override
+    public void prepareTables(ClassMetaData<T> cmd) {
         StringBuilder create_table = new StringBuilder("create table if not exists %s (id bigint(20) NOT NULL auto_increment PRIMARY KEY");
         cmd.getFieldNodes().forEach(node -> {
             String columnName = node.getField().getName();
@@ -86,6 +87,7 @@ public class MyOrmDBService<T extends DataSet> {
         exec.execUpdate(String.format(create_table.toString(), cmd.getTableName(cmd.getBaseClass())), statement -> {} );
     }
 
+    @Override
     public void save(T dataSetChild) {
         ClassMetaData<T> cmd = getMetaData(dataSetChild.getClass());
         prepareTables(cmd);
@@ -109,6 +111,7 @@ public class MyOrmDBService<T extends DataSet> {
         );
     }
 
+    @Override
     public T load(long id, Class<T> clazz) throws SQLException {
         StringBuilder select = new StringBuilder("select * from %s where id = ?");
         ClassMetaData<T> cmd = getMetaData(clazz);
