@@ -73,18 +73,18 @@ public class MyOrmDBService<T extends DataSet> implements MyDAO<T>, MyDBS<T> {
 
     @Override
     public void prepareTables(ClassMetaData<T> cmd) {
-        StringBuilder create_table = new StringBuilder("create table if not exists %s (id bigint(20) NOT NULL auto_increment PRIMARY KEY");
+        StringBuilder createTableQueryBuilder = new StringBuilder("create table if not exists %s (id bigint(20) NOT NULL auto_increment PRIMARY KEY");
         cmd.getFieldNodes().forEach(node -> {
             String columnName = node.getField().getName();
             String columnType = node.getType().getSQLType();
-            create_table.append(", " + columnName + " " + columnType);
+            createTableQueryBuilder.append(", " + columnName + " " + columnType);
         });
-        create_table.append(")");
+        createTableQueryBuilder.append(")");
 
 //        System.out.println(String.format(CREATE_TABLE.toString(), st.getTableName(st.getBaseClass())));
 
         Executor exec = new Executor(connection);
-        exec.execUpdate(String.format(create_table.toString(), cmd.getTableName(cmd.getBaseClass())), statement -> {} );
+        exec.execUpdate(String.format(createTableQueryBuilder.toString(), cmd.getTableName(cmd.getBaseClass())), statement -> {} );
     }
 
     @Override
@@ -92,15 +92,15 @@ public class MyOrmDBService<T extends DataSet> implements MyDAO<T>, MyDBS<T> {
         ClassMetaData<T> cmd = getMetaData(dataSetChild.getClass());
         prepareTables(cmd);
 
-        StringBuilder insert = new StringBuilder("insert into %s ");
-        insert.append(cmd.getFieldNodes().stream().map(node -> node.getField().getName()).collect(Collectors.joining(", " ,"(", ")")));
-        insert.append(cmd.getFieldNodes().stream().map(node -> "?").collect(Collectors.joining(", " ," values(", ")")));
+        StringBuilder insertQueryBuilder = new StringBuilder("insert into %s ");
+        insertQueryBuilder.append(cmd.getFieldNodes().stream().map(node -> node.getField().getName()).collect(Collectors.joining(", " ,"(", ")")));
+        insertQueryBuilder.append(cmd.getFieldNodes().stream().map(node -> "?").collect(Collectors.joining(", " ," values(", ")")));
 
 //        System.out.println(String.format(INSERT.toString(), cmd.getTableName(cmd.getBaseClass())));
 
         Executor exec = new Executor(connection);
         exec.execUpdate(
-                String.format(insert.toString(), cmd.getTableName(cmd.getBaseClass())),
+                String.format(insertQueryBuilder.toString(), cmd.getTableName(cmd.getBaseClass())),
                 statement -> {
                     try {
                         preparePlaceHolders(dataSetChild, cmd.getFieldNodes(), statement);
@@ -113,11 +113,11 @@ public class MyOrmDBService<T extends DataSet> implements MyDAO<T>, MyDBS<T> {
 
     @Override
     public T load(long id, Class<T> clazz) throws SQLException {
-        StringBuilder select = new StringBuilder("select * from %s where id = ?");
+        StringBuilder selectQueryBuilder = new StringBuilder("select * from %s where id = ?");
         ClassMetaData<T> cmd = getMetaData(clazz);
 
         Executor exec = new Executor(connection);
-        return exec.execQuery(   String.format(select.toString(), cmd.getTableName(clazz)),
+        return exec.execQuery(   String.format(selectQueryBuilder.toString(), cmd.getTableName(clazz)),
                 statement -> statement.setLong(1, id),
                 result -> {
                     T obj = null;
