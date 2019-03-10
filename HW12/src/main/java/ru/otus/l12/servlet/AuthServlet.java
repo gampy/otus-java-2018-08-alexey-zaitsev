@@ -3,6 +3,7 @@ package ru.otus.l12.servlet;
 import ru.otus.l12.ORM.DBService;
 import ru.otus.l12.ORM.hibernate.HibernateDBService;
 import ru.otus.l12.dataSets.UserDataSet;
+import ru.otus.l12.utils.TemplateProcessor;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,12 +16,12 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/dispatcher")
-public class DispatcherServlet extends HttpServlet {
+@WebServlet("/auth")
+public class AuthServlet extends HttpServlet {
     private final TemplateProcessor templateProcessor;
     private final DBService dbService;
 
-    public DispatcherServlet(TemplateProcessor templateProcessor, DBService dbService) {
+    public AuthServlet(TemplateProcessor templateProcessor, DBService dbService) {
         this.templateProcessor = templateProcessor;
         this.dbService = dbService;
     }
@@ -74,7 +75,10 @@ public class DispatcherServlet extends HttpServlet {
             dbService.saveUser(user);
         } catch (org.hibernate.exception.ConstraintViolationException e) {
             pageAddr = templateProcessor.getProperties().getProperty("regist_error_tmpl");
+        }  catch (Exception e) {
+            pageAddr = templateProcessor.getProperties().getProperty("unspec_error_tmpl");
         }
+
         if (pageAddr == null) pageAddr = templateProcessor.getProperties().getProperty("regist_success_tmpl");
         String page = templateProcessor.getPage(pageAddr, getPageVariablesMap(request));
         response.getWriter().println(page);

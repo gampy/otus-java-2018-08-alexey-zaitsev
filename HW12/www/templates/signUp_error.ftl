@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <title>Registration completed</title>
+    <title>Registration error</title>
 </head>
 <body>
 
 <div class="maintext">
-    User <b> ${login} </b> already exists. Choose another login.</b>
+    User <b> ${login} </b> already exists. Choose another login.
 </div>
 
 <div class="footer">

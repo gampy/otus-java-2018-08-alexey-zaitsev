@@ -1,4 +1,4 @@
-package ru.otus.l12.servlet;
+package ru.otus.l12.utils;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -18,15 +18,19 @@ public class TemplateProcessor {
     private final Configuration configuration;
     private final Properties properties;
 
-    public TemplateProcessor(Properties properties) throws IOException {
+    public TemplateProcessor(Properties properties) {
         this.properties = properties;
         this.configuration = new Configuration(Configuration.VERSION_2_3_28);
-        this.configuration.setDirectoryForTemplateLoading(new File(properties.getProperty("templates_catalog")));
+        try {
+            this.configuration.setDirectoryForTemplateLoading(new File(properties.getProperty("templates_catalog")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.configuration.setDefaultEncoding(properties.getProperty("default_encoding"));
         this.configuration.setLocale(Locale.getDefault());
     }
 
-    String getPage(String filename, Map<String, Object> data) throws IOException {
+    public String getPage(String filename, Map<String, Object> data) throws IOException {
         try (Writer stream = new StringWriter()) {
             Template template = configuration.getTemplate(filename);
             template.process(data, stream);

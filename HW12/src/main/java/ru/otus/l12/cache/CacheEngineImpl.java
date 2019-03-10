@@ -1,10 +1,7 @@
 package ru.otus.l12.cache;
 
 import java.lang.ref.SoftReference;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.function.Function;
 
 public class CacheEngineImpl<K, V> implements CacheEngine<K, V> {
@@ -58,6 +55,16 @@ public class CacheEngineImpl<K, V> implements CacheEngine<K, V> {
         }
         return el.getValue();
     }
+
+    public Map<K, V> getAll() {
+        Map<K, V> map = new HashMap<>();
+        elements.keySet().stream().forEach((key) -> {
+            V value = get(key);
+            map.put(key, value);
+        });
+        return map;
+    }
+
 
     public int getHitCount() {
         return hit;
