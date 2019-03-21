@@ -9,7 +9,7 @@ public class Switcher {
     private static volatile int counter;
     private static volatile boolean ascending = true;
 
-    private Thread lastThread;
+    private volatile Thread lastThread;
 
 
     Switcher() {
@@ -30,7 +30,7 @@ public class Switcher {
         }
     }
 
-    private void next() {
+    private synchronized void next() {
         if (ascending) swap(() -> ++counter >= MAX);
         else swap(() -> --counter <= MIN);
 
@@ -52,7 +52,7 @@ public class Switcher {
         }
     }
 
-    private void swap (Supplier<Boolean> limit) {
+    private synchronized void swap (Supplier<Boolean> limit) {
         if (limit.get()) ascending =! ascending;
     }
 
