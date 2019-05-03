@@ -1,4 +1,4 @@
-package ru.otus.l14.config;
+package ru.otus.l14;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "ru.otus.l14.controllers"})
+@ComponentScan(basePackages = { "ru.otus.l14"})
 public class WebMvcConfig {
 
     private final ApplicationContext applicationContext;
@@ -27,7 +27,7 @@ public class WebMvcConfig {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(this.applicationContext);
         templateResolver.setPrefix("/WEB-INF/templates/");
-        templateResolver.setSuffix(".html");
+//        templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCacheable(true);
         templateResolver.setCharacterEncoding("UTF-8");

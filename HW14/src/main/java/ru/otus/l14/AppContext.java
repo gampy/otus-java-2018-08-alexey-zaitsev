@@ -1,4 +1,4 @@
-package ru.otus.l14.config;
+package ru.otus.l14;
 
 
 import java.util.Properties;
@@ -13,13 +13,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @PropertySource("classpath:application.properties")
-@EnableTransactionManagement
+//@EnableTransactionManagement
 @ComponentScan(basePackages = {"ru.otus.l14"})
 public class AppContext {
 
@@ -56,10 +54,10 @@ public class AppContext {
         return properties;
     }
 
-    @Bean
-    public HibernateTransactionManager getTransactionManager() {
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactory().getObject());
-        return transactionManager;
-    }
+//    @Bean
+//    public HibernateTransactionManager getTransactionManager() {
+//        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+//        transactionManager.setSessionFactory(sessionFactory().getObject());
+//        return transactionManager;
+//    }
 }

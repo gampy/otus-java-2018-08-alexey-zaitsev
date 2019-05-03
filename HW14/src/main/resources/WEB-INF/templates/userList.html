@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>login</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <style>
+        a, article, audio, body, body, canvas, caption, dd, details, div, dl, dt, em, figcaption, figure, footer, form, h1, h2, h3, h4, h5, header, html, i, iframe, img, label, legend, li, mark, menu, nav, object, ol, p, q, samp, section, small, span, strong, sub, summary, table, tbody, td, textarea, tfoot, th, thead, time, tr, ul, var, video {
+            border: 0 none;
+            font-family: Trebuchet MS, Arial, Verdana, Helvetica, Sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+        }
+
+
+        body {
+            background-color: #EAEAEA;
+            color: #006699;
+            font-size: 12px;
+        }
+
+        /*.header { background: url("../images/headerBg.png") repeat-x scroll 0 0 transparent; min-height: 140px; text-align: center; }*/
+
+        .footer {
+            filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#919191',EndColorStr='#2F2F2F');
+
+            background:#919191;
+            background:-ms-linear-gradient(top,#919191,#2F2F2F);
+            background:-webkit-gradient(linear,left top,left bottom,from(#919191),to(#2F2F2F));
+            background:-moz-linear-gradient(top,#919191,#2F2F2F);
+            background:-o-linear-gradient(top,#919191,#2F2F2F);
+            color: #FFFFFF; font-size: 10px; letter-spacing: 1px; line-height: 48px; text-align: center; margin: 20px 0 0;
+        }
+
+        h1 { color: #006699; float: left; font-size: 20px; font-weight: normal; letter-spacing: 1px; padding: 0 0 10px; text-align: left;  }
+
+        .hint {
+            color: #333333;
+            float: left;
+            font-size: 12px;
+            font-weight: normal;
+            letter-spacing: 1px;
+            margin: 5px 10px 15px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .container {
+            background: none repeat scroll 0 0 #FFFFFF;
+            border-radius: 8px 8px 8px 8px;
+            -moz-box-shadow: 0 0 6px #999999;
+            -webkit-box-shadow: 0 0 6px #999999;
+            box-shadow: 0 0 6px #999999;
+            clear: both;
+            min-height: 250px;
+            margin: 0 0 25px 0;
+            padding: 15px;
+            width: 250px;
+            margin: 20px;
+        }
+
+
+        .formRow > label {
+            color: #333333;
+            float: left;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            line-height: 12px;
+            /*min-width: 30%;*/
+            padding: 0 10px;
+        }
+
+        .formRow > input, select, textarea {
+            border: 1px solid #999999;
+            /*color: #006699;*/
+            float: left;
+            font-size: 12px;
+            /*height: 16px;*/
+            letter-spacing: 1px;
+            margin: 0 10px;
+            padding: 2px 4px;
+            width: 200px;
+        }
+
+        .button  {
+            background:#1876a6;
+            background:-ms-linear-gradient(top,#64b1d9,#1876a6);
+            background:-webkit-gradient(linear,left top,left bottom,from(#64b1d9),to(#1876a6));
+            background:-moz-linear-gradient(top,#64b1d9,#1876a6);
+            background:-o-linear-gradient(top,#64b1d9,#1876a6);
+            color: #FCFCFC;
+            border: 1px solid #ffffff;
+            border-radius: 2px 2px 2px 2px;
+            box-shadow: 0 1px 2px #666666;
+            -moz-box-shadow: 0 1px 2px #666666;
+            -webkit-box-shadow: 0 1px 2px #666666;
+            cursor: pointer;
+            font-size: 14px;
+            letter-spacing: 1px;
+            line-height: 18px;
+            margin: 5px 10px 5px 5px;
+            float: left;
+            width: 60px;
+        }
+
+        .break {
+            clear: both;
+            line-height: 8px;
+        }
+    </style>
+
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+    <tr>
+        <td valign="top" align="center">
+            <div class="header">
+                <div class="break">
+                    &nbsp;
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td valign="top" align="center">
+            <div class="hint">
+                <h5 th:text = "${message}"></h5>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td valign="top" align="center">
+            <div class="container">
+
+                <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                        <td><b>ID</b></td>
+                        <td><b>Name</b></td>
+                    </tr>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.login}"></td>
+                    </tr>
+                </table>
+
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td valign="top" align="center">
+            <div class = message>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td valign="top" align="center">
+            <div class = footer>
+            </div>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
